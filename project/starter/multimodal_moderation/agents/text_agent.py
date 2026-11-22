@@ -34,10 +34,23 @@ Provide a detailed rationale for your choices as well as a confidence score betw
 #   - instructions=MODERATION_INSTRUCTIONS
 #   - output_type=TextModerationResult
 # Hint: Agent is already imported from pydantic_ai
-text_moderation_agent = None  # Replace with your Agent
+# Replace with your Agent
+text_moderation_agent = Agent(
+    instructions=MODERATION_INSTRUCTIONS,
+    output_type=TextModerationResult
+)
 
 
 async def moderate_text(model_choice: ModelChoice, text: str) -> TextModerationResult:
+    # Run the agent asynchronously
+    result = await text_moderation_agent.run(
+        f"Moderate the following customer service message:\n\n{text}",
+        model=model_choice.model,
+        model_settings=model_choice.model_settings
+    )
+
+    # Return structured moderation output
+    return result.output
 
     # TODO: Run the text_moderation_agent with a prompt containing the text,
     #       then return result.output

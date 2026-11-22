@@ -1,3 +1,4 @@
+import os
 from fastapi import Depends, FastAPI, HTTPException, UploadFile, File
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from pydantic import BaseModel
@@ -14,8 +15,9 @@ from multimodal_moderation.agents.text_agent import moderate_text
 from multimodal_moderation.agents.image_agent import moderate_image
 from multimodal_moderation.agents.video_agent import moderate_video
 from multimodal_moderation.agents.audio_agent import moderate_audio
+from dotenv import load_dotenv
 
-
+load_dotenv()
 # Standard auth scheme using -H "Authorization: Bearer <api_key>" header.
 security = HTTPBearer()
 
@@ -74,7 +76,7 @@ async def health_check():
 def main():
     import uvicorn
 
-    uvicorn.run("multimodal_moderation.fastapi_app:app", host="0.0.0.0", port=8000, reload=True, log_level="trace")
+    uvicorn.run("multimodal_moderation.fastapi_app:app", host="0.0.0.0", port=8000, reload=True, log_level="trace", root_path=os.getenv("API_ROOT_PATH", ""))
 
 
 if __name__ == "__main__":

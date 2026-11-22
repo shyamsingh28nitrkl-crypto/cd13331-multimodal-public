@@ -39,6 +39,24 @@ async def moderate_image(
     image_source: bytes,
     media_type: str
 ) -> ImageModerationResult:
+    # Convert image bytes into BinaryContent
+    image_input = BinaryContent(
+        data=image_source,
+        media_type=media_type
+    )
+
+    # Run image moderation asynchronously
+    result = await image_moderation_agent.run(
+        [
+            "Analyze this image for moderation according to the given instructions.",
+            image_input
+        ],
+        model=model_choice.model,
+        model_settings=model_choice.model_settings
+    )
+
+    # Return structured output
+    return result.output
 
     # TODO: Create a BinaryContent object with data=image_source and media_type=media_type
     image_input = ...  # Replace with your BinaryContent object

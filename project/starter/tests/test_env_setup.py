@@ -36,11 +36,11 @@ def test_env_file_exists():
 def test_gemini_api_key_is_set():
     """Verify GEMINI_API_KEY environment variable is set"""
     assert GEMINI_API_KEY, \
-        "GEMINI_API_KEY must be set in .env file. Get your API key from https://aistudio.google.com/apikey"
+        "GEMINI_API_KEY must be set in .env file. Get your API key from Udacity classroom shown under Cloud Resources"
     assert len(GEMINI_API_KEY) > 0, \
         "GEMINI_API_KEY cannot be empty"
     assert not GEMINI_API_KEY.startswith("your-"), \
-        "GEMINI_API_KEY appears to be a placeholder. Replace with actual API key from Google AI Studio"
+        "GEMINI_API_KEY appears to be a placeholder. Replace with actual API key from Udacity classroom shown under Cloud Resources"
 
 
 def test_user_api_key_is_set():
